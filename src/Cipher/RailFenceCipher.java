@@ -14,16 +14,16 @@ public class RailFenceCipher {
         CipherText = sCipherText;
     }
 
-    public void show (){
-        System.out.println("Исходный текст: " + OriginalText + "; Шифротекст: " + CipherText + "; Ключ: " + Key );
-    }
-
     public String getOriginalText (){
         return OriginalText;
     }
 
     public String getCipherText (){
         return CipherText;
+    }
+
+    public void show (){
+        System.out.println("Исходный текст: " + OriginalText + "; Шифротекст: " + CipherText + "; Ключ: " + Key );
     }
 
     public void setKey(int k){
