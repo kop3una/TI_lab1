@@ -75,7 +75,7 @@ public class VigenerCipher {
     }
 
     public void show (){
-        System.out.println("Исходный текст: " + OriginalText + "; Шифротекст: " + CipherText + "; Ключ: " + Key );
+        System.out.println("Исходный текст: " + OriginalText + "; Шифротекст: " + CipherText+ "; Ключ: " + Key );
     }
 
     public void setKey(String k){

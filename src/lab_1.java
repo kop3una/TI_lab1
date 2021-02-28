@@ -5,15 +5,24 @@ public class lab_1 {
     public static void main (String [] args){
         Scanner in = new Scanner(System.in);
 
-        VigenerCipher Vigner = new VigenerCipher();
-       // Vigner.setOriginalText(in.nextLine());
-        Vigner.setCipherText(in.nextLine());
-        Vigner.setKey(in.nextLine());
-     //   Vigner.coding();
-        Vigner.uncoding();
-        Vigner.show();
-   //     Vigner.showTableEn();
-   //     Vigner.showTableRu();
+          CardanGrilleCipher CardanGrille = new CardanGrilleCipher();
+  //        CardanGrille.setOriginalText(in.nextLine());
+        CardanGrille.setCipherText(in.nextLine());
+          CardanGrille.setKey();
+//          CardanGrille.coding();
+          CardanGrille.uncoding();
+          CardanGrille.show();
+
+
+//        VigenerCipher Vigner = new VigenerCipher();
+//        Vigner.setOriginalText(in.nextLine());
+//        Vigner.setCipherText(in.nextLine());
+//        Vigner.setKey(in.nextLine());
+//        Vigner.coding();
+//        Vigner.uncoding();
+//        Vigner.show();
+//        Vigner.showTableEn();
+//        Vigner.showTableRu();
 
 //        ColumnMethodCipher ColumnMethod = new ColumnMethodCipher();
 //        ColumnMethod.setCipherText(in.nextLine());
