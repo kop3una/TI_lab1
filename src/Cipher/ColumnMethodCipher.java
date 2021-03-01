@@ -29,6 +29,12 @@ public class ColumnMethodCipher {
         System.out.println("Исходный текст: " + OriginalText + "; Шифротекст: " + CipherText + "; Ключ: " + Key );
     }
 
+    public void reset(){
+        setOriginalText("");
+        setCipherText("");
+        setKey("");
+    }
+
     public void setKey(String k){
         Key = k.toUpperCase(Locale.ROOT);
     }

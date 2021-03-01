@@ -47,15 +47,27 @@ public class CardanGrilleCipher {
         System.out.println("Исходный текст: " + OriginalText + "; Шифротекст: " + CipherText + ";"); // + "; Ключ: " + Key );
     }
 
+    public void reset(){
+        setOriginalText(null);
+        setCipherText(null);
+            for (int i =0 ; i < Key.length; i++){
+                for (int j =0; j < Key.length; j++){
+                    Key[i][j] = false;
+                }
+            }
+    }
+
     private void MakeMatrixForKey (){
         int size = 0;
         if (OriginalText != null){
             size = (int) Math.ceil(Math.sqrt(OriginalText.length()));
             MatrixForKey = new int[size][size];
+            Key = new boolean[size][size];
         }
         if  (CipherText != null) {
             size = (int) Math.ceil(Math.sqrt(CipherText.length()));
             MatrixForKey = new int[size][size];
+            Key = new boolean[size][size];
         }
         int number = 1;
         int j;
@@ -72,9 +84,38 @@ public class CardanGrilleCipher {
         }
     }
 
-    public void GenerateKey () {
-        MakeMatrixForKey();
+    private void MakeKey (int size){
+        Scanner in = new Scanner(System.in);
+        System.out.println("Введите ключ");
+        int [] KEYchr = new int [size];
+        for (int i =0; i < size; i++){
+            KEYchr[i] = in.nextInt();
+        }
+        int number;
+        int knumber;
+        int kkey;
 
+        for (int index = 0; index < KEYchr.length; index++){
+            number = KEYchr[index];
+            knumber = (index % 4) + 1;
+            kkey = 1;
+            for (int i = 0; i < Key.length; i++){
+                for (int j = 0; j < Key.length; j++){
+                    if (MatrixForKey[i][j] == number){
+                        if (kkey == knumber){
+                            Key [i][j] = true;
+                        }
+                        kkey++;
+                    }
+                }
+            }
+        }
+
+    }
+
+    public void GenerateKey (int Key) {
+        MakeMatrixForKey();
+        MakeKey(Key);
     }
 
     private void MakeChipherText (){
@@ -82,12 +123,6 @@ public class CardanGrilleCipher {
         int size = Key.length;
         char [][] MatrixForCoding = new char [size][size];
         int index = 0;
-
-        for (int i = 0; i < size; i++){
-            for (int j = 0; j < size; j++){
-                MatrixForCoding[i][j] = ' ';
-            }
-        }
 
         for (int i = 0; i < size; i++){
             for (int j = 0; (j < size) && (index < OriginalText.length()); j++){

@@ -55,11 +55,11 @@ public class VigenerCipher {
     }
 
     public void setOriginalText (String sOriginalText){
-        OriginalText = sOriginalText;
+        OriginalText = sOriginalText.toUpperCase(Locale.ROOT);
     }
 
     public void setCipherText (String sCipherText){
-        CipherText = sCipherText;
+        CipherText = sCipherText.toUpperCase(Locale.ROOT);
     }
 
     public String getOriginalText (){
@@ -78,10 +78,16 @@ public class VigenerCipher {
         System.out.println("Исходный текст: " + OriginalText + "; Шифротекст: " + CipherText+ "; Ключ: " + Key );
     }
 
+    public void reset(){
+        setOriginalText("");
+        setCipherText("");
+        setKey("");
+    }
+
     public void setKey(String k){
         StringBuilder s = new StringBuilder();
         String Text;
-        if (OriginalText != null) {
+        if (OriginalText.length() != 0) {
             Text = OriginalText;
         }
         else {
@@ -102,37 +108,61 @@ public class VigenerCipher {
     private void MakeChipherText() {
         StringBuilder s = new StringBuilder();
         MakeTableEn();
+        MakeTableRu();
+  //      showTableRu();
         int index = 0;
         int i = 0;
         int j = 0;
         while (index < OriginalText.length()){
             if ( (OriginalText.charAt(index) >= 65) && (OriginalText.charAt(index) <= 90) ){
                 j = OriginalText.charAt(index) - 65;
+                i = StraightKey.charAt(index) - 65;
+                s.append(TableEn[i][j]);
+                index++;
             }
-            i = StraightKey.charAt(index) - 65;
-            s.append(TableEn[i][j]);
-            index++;
+            else {
+                if ( ( OriginalText.charAt(index) >= 1040) && (OriginalText.charAt(index) <= 1072) ){
+                    j = (OriginalText.charAt(index) - 1040);
+                    i = StraightKey.charAt(index) - 1040;
+                    s.append(TableRu[i][j]);
+                    index++;
+                }
+            }
+
         }
-        CipherText = s.toString();
+        CipherText = s.toString().toUpperCase(Locale.ROOT);
     }
 
     private void MakeOriginalText() {
         StringBuilder s = new StringBuilder();
         MakeTableEn();
+        MakeTableRu();
         int index = 0;
         int i = 0;
         int j = 0;
         while (index < CipherText.length()){
             if ( ( CipherText.charAt(index) >= 65) && (CipherText.charAt(index) <= 90) ){
                 j = (CipherText.charAt(index) - 65) - (StraightKey.charAt(index) - 65) ;
+
+                if (j < 0){
+                    j = 26 + j;
+                }
+                s.append(AlphabetEn[j]);
+                index++ ;
             }
-            if (j < 0){
-                j = 26 + j;
+            else {
+                 if ( ( CipherText.charAt(index) >= 1040) && (CipherText.charAt(index) <= 1072) ){
+                    j = (CipherText.charAt(index) - 1040) - (StraightKey.charAt(index) - 1040) ;
+
+                    if (j < 0){
+                        j = 32 + j;
+                    }
+                    s.append(AlphabetRu[j]);
+                    index++ ;
+                }
             }
-            s.append(AlphabetEn[j]);
-            index++ ;
         }
-        OriginalText = s.toString();
+        OriginalText = s.toString().toUpperCase(Locale.ROOT);
     }
 
     public void coding (){

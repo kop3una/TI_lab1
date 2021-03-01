@@ -26,6 +26,12 @@ public class RailFenceCipher {
         System.out.println("Исходный текст: " + OriginalText + "; Шифротекст: " + CipherText + "; Ключ: " + Key );
     }
 
+    public void reset(){
+        setOriginalText("");
+        setCipherText("");
+        setKey(0);
+    }
+
     public void setKey(int k){
         Key = k;
     }
